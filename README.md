@@ -24,7 +24,7 @@ $easychimp->interests($listId, $interestCategoryId); // []
 # Installation
 
 ```
-composer require bkuhl/easychimp:dev-master
+composer require bkuhl/easychimp:~0.1
 ```
 
 # Laravel
