@@ -2,9 +2,6 @@
 
 namespace Easychimp;
 
-use Illuminate\Support\Facades\Mail;
-use Mailchimp\Mailchimp;
-
 class ServiceProvider
 {
 
@@ -28,7 +25,7 @@ class ServiceProvider
     {
         $this->app->bind('Easychimp', function ($app) {
             $config = $app['config']['easychimp'];
-            return new Easychimp(new Mailchimp($config['apikey']));
+            return new Easychimp($config['apikey']);
         });
     }
 }

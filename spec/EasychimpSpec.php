@@ -8,19 +8,22 @@ use Prophecy\Argument;
 
 class EasychimpSpec extends ObjectBehavior
 {
+    protected static $EMAIL;
+
     /** @var string */
     protected $listId;
 
     function let()
     {
         # Load environment variables for local development
-        include '.env.php';
+        if (file_exists('.env.php')) {
+            require_once '.env.php';
+        }
 
         # We need a list to test with
         $this->listId = getenv('MAILCHIMP_TEST_LIST_ID');
 
-        $api = new Mailchimp(getenv('MAILCHIMP_API_KEY'));
-        $this->beConstructedWith($api);
+        $this->beConstructedWith(getenv('MAILCHIMP_API_KEY'));
     }
 
     function it_is_initializable()
@@ -28,18 +31,38 @@ class EasychimpSpec extends ObjectBehavior
         $this->shouldHaveType('Easychimp\Easychimp');
     }
 
-    function it_can_manage_subscribers()
+    // ----- The following few tests share email addresses
+
+    function it_can_subscribe_new_emails()
     {
-        $emailAddress = 'benkuhl+'.time().'@gmail.com';
-        $this->subscribe($this->listId, $emailAddress, 'FirstName', 'LastName')->shouldReturn(true);
-        $this->isSubscribed($this->listId, $emailAddress)->shouldReturn(true);
-        $this->unsubscribe($this->listId, $emailAddress)->shouldReturn(true);
-        $this->isSubscribed($this->listId, $emailAddress)->shouldReturn(false);
+        self::$EMAIL = uniqid().'@gmail.com';
+        $this->subscribe($this->listId, self::$EMAIL, 'FirstName', 'LastName')
+            ->shouldReturn(true);
+    }
+
+    function it_shows_email_as_subscribed()
+    {
+        $this->isSubscribed($this->listId, self::$EMAIL)
+            ->shouldReturn(true);
+    }
+
+    function it_unsubscribes_email_addresses()
+    {
+        $this->unsubscribe($this->listId, self::$EMAIL)
+            ->shouldReturn(true);
+    }
+
+    // ----- end shared email address
+
+    function it_is_unsubscribed_when_email_was_never_subscribed() {
+        $this->unsubscribe($this->listId, uniqid().'@gmail.com')
+            ->shouldReturn(true);
     }
 
     function it_should_classify_nonexistant_emails_as_unsubscribed()
     {
-        $this->isSubscribed($this->listId, microtime().'@the.moon')->shouldReturn(false);
+        $this->isSubscribed($this->listId, microtime().'@the.moon')
+            ->shouldReturn(false);
     }
 
     function it_should_fail_to_subscribe_invalid_email()

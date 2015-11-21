@@ -10,9 +10,9 @@ class Easychimp
     /** @var Mailchimp */
     protected $api;
 
-    public function __construct(Mailchimp $api)
+    public function __construct($apiKey)
     {
-        $this->api = $api;
+        $this->api = new Mailchimp($apiKey);
     }
 
     /**
@@ -25,18 +25,18 @@ class Easychimp
      */
     public function isSubscribed($listId, $email)
     {
-//        try {
+        try {
             $result = $this->api->get('lists/'.$listId.'/members/'.$this->hashEmail($email));
-dd($result);
+
             return $result->get('status') == 'subscribed';
-//        } catch (\Exception $e) {
-//            # Email address isn't on this list
-//            if (str_contains($e->getMessage(), 'Resource Not Found')) {
-//                return false;
-//            }
-//
-//            throw $e;
-//        }
+        } catch (\Exception $e) {
+            # Email address isn't on this list
+            if (str_contains($e->getMessage(), 'Resource Not Found')) {
+                return false;
+            }
+
+            throw $e;
+        }
     }
 
     /**
