@@ -63,12 +63,17 @@ class Easychimp
         if (!is_null($lastName)) {
             $mergeFields['LNAME'] = $lastName;
         }
-
-        $result = $this->api->post('lists/'.$listId.'/members', [
+        $data = [
             'email_address' => $email,
             'status'        => 'subscribed',
             'merge_fields'  => (object) $mergeFields
-        ]);
+        ];
+
+        if (!is_null($interests)) {
+            $data['interests'] = (object) array_flip($interests);
+        }
+
+        $result = $this->api->post('lists/'.$listId.'/members', $data);
 
         return $result->has('id') && strlen($result->get('id')) > 0;
     }
@@ -95,6 +100,35 @@ class Easychimp
 
             throw $e;
         }
+    }
+
+    /**
+     * @param $listId
+     *
+     * @throws \Exception
+     *
+     * @return []
+     */
+    public function interestCategories($listId)
+    {
+        $result = $this->api->get('lists/'.$listId.'/interest-categories');
+
+        return $result->get('categories');
+    }
+
+    /**
+     * @param $listId
+     * @param $interestCategoryId
+     *
+     * @throws \Exception
+     *
+     * @return []
+     */
+    public function interests($listId, $interestCategoryId)
+    {
+        $result = $this->api->get('lists/'.$listId.'/interest-categories/'.$interestCategoryId.'/interests');
+
+        return $result->get('interests');
     }
 
     /**

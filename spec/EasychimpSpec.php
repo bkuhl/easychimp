@@ -36,7 +36,9 @@ class EasychimpSpec extends ObjectBehavior
     function it_can_subscribe_new_emails()
     {
         self::$EMAIL = uniqid().'@gmail.com';
-        $this->subscribe($this->listId, self::$EMAIL, 'FirstName', 'LastName')
+        $this->subscribe($this->listId, self::$EMAIL, 'FirstName', 'LastName', [
+
+        ])
             ->shouldReturn(true);
     }
 
@@ -71,5 +73,12 @@ class EasychimpSpec extends ObjectBehavior
             $this->listId,
             'Waffles'
         ]);
+    }
+
+    function it_should_list_interest_categories_and_interests()
+    {
+        $category = $this->interestCategories($this->listId)->shouldHaveCount(1)[0];
+
+        $this->interests($this->listId, $category->id)->shouldHaveCount(3);
     }
 }

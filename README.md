@@ -15,6 +15,10 @@ $easychimp = new Easychimp\Easychimp($apiKey);
 $easychimp->isSubscribed($listId, $email); // boolean
 $easychimp->subscribe($listId, $email, $firstName = null, $lastName = null); // boolean
 $easychimp->unsubscribed($listId, $email); // boolean
+
+// Interests are labeled as "Groups" in the Mailchimp UI
+$easychimp->interestCategories($listId); // []
+$easychimp->interests($listId, $interestCategoryId); // []
 ```
 
 # Installation
