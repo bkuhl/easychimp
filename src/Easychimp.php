@@ -48,8 +48,13 @@ class Easychimp
      *
      * @return boolean
      */
-    public function subscribe($listId, $email, $firstName = null, $lastName = null)
-    {
+    public function subscribe(
+        $listId,
+        $email,
+        $firstName = null,
+        $lastName = null,
+        array $interests = null
+    ) {
         $mergeFields = [];
         if (!is_null($firstName)) {
             $mergeFields['FNAME'] = $firstName;

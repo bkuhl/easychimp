@@ -1,7 +1,7 @@
 # Easychimp
 [![Latest Stable Version](https://poser.pugx.org/bkuhl/easychimp/v/stable.png)](https://packagist.org/packages/bkuhl/easychimp) [![Total Downloads](https://poser.pugx.org/bkuhl/easychimp/downloads.png)](https://packagist.org/packages/bkuhl/easychimp) [![Build Status](https://travis-ci.org/bkuhl/easychimp.svg?branch=master)](https://travis-ci.org/bkuhl/easychimp) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/bkuhl/easychimp/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/bkuhl/easychimp/?branch=master)
 
-Easychimp makes integrating a PHP/Laravel app with Mailchimp's API (version 3) dead simple.  Functionality is currently limited to managing subscribes on a list because that's what I needed for a project.  I'd welcome pull requests that add additional functionality.
+Easychimp makes integrating a PHP/Laravel app with Mailchimp's API (version 3) dead simple.  Functionality is currently limited to managing subscriptions on a list because that's what I needed for a project.  I'd welcome pull requests that add additional functionality.
 
 * [Usage](#usage)
 * [Installation](#installation)
