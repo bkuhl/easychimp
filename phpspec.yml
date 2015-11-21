@@ -1,0 +1,6 @@
+formatter.name: pretty
+suites:
+    main:
+        namespace: Easychimp
+        psr4_prefix: Easychimp
+        src_path: src

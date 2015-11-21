@@ -1,0 +1,25 @@
+{
+    "name": "bkuhl/easychimp",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ben Kuhl",
+            "email": "benkuhl@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Easychimp\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.5.0",
+        "pacely/mailchimp-apiv3": "dev-master",
+        "illuminate/support": ">=5.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "~2.3",
+        "symfony/var-dumper": "dev-master"
+    }
+}
