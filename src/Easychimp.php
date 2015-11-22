@@ -42,7 +42,9 @@ class Easychimp
     /**
      * @param $listId
      * @param $email
-     * @param array $extras
+     * @param $firstName
+     * @param $lastName
+     * @param array $interests
      *
      * @throws \Exception
      *
@@ -56,11 +58,11 @@ class Easychimp
         array $interests = null
     ) {
         $mergeFields = [];
-        if (!is_null($firstName)) {
+        if ($firstName !== null) {
             $mergeFields['FNAME'] = $firstName;
         }
 
-        if (!is_null($lastName)) {
+        if ($lastName !== null) {
             $mergeFields['LNAME'] = $lastName;
         }
         $data = [
@@ -69,7 +71,7 @@ class Easychimp
             'merge_fields'  => (object) $mergeFields
         ];
 
-        if (!is_null($interests)) {
+        if ($interests !== null) {
             $data['interests'] = (object) array_flip($interests);
         }
 
@@ -107,7 +109,7 @@ class Easychimp
      *
      * @throws \Exception
      *
-     * @return []
+     * @return array
      */
     public function interestCategories($listId)
     {
@@ -122,7 +124,7 @@ class Easychimp
      *
      * @throws \Exception
      *
-     * @return []
+     * @return array
      */
     public function interests($listId, $interestCategoryId)
     {

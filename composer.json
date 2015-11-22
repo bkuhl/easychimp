@@ -15,7 +15,7 @@
     },
     "require": {
         "php": ">=5.5.0",
-        "pacely/mailchimp-apiv3": "dev-master",
+        "pacely/mailchimp-apiv3": "~1.0",
         "illuminate/support": ">=5.0"
     },
     "require-dev": {
