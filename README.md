@@ -13,7 +13,7 @@ Easychimp makes integrating a PHP/Laravel app with Mailchimp's API (version 3) d
 ```php
 $easychimp = new Easychimp\Easychimp($apiKey);
 $easychimp->isSubscribed($listId, $email); // boolean
-$easychimp->subscribe($listId, $email, $firstName = null, $lastName = null); // boolean
+$easychimp->subscribe($listId, $email, $firstName = null, $lastName = null, array $interests); // boolean
 $easychimp->unsubscribed($listId, $email); // boolean
 
 // Interests are labeled as "Groups" in the Mailchimp UI
