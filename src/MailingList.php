@@ -55,11 +55,11 @@ class MailingList
     }
 
     /**
-     * @param string    $email
-     * @param string    $firstName
-     * @param string    $lastName
-     * @param object    $interests  Array where keys are interest ids and values are boolean
-     * @param array     $extras     Additional fields to be passed to the Mailchimp API
+     * @param string        $email
+     * @param string        $firstName
+     * @param string        $lastName
+     * @param array|object  $interests  Properties/Keys are interest ids and values are boolean
+     * @param array         $extras     Additional fields to be passed to the Mailchimp API
      *
      * @throws \Exception
      *
@@ -120,11 +120,11 @@ class MailingList
     }
 
     /**
-     * @param string    $email
-     * @param string    $firstName
-     * @param string    $lastName
-     * @param object    $interests  Array where keys are interest ids and values are boolean
-     * @param array     $extras     Additional fields to be passed to the Mailchimp API
+     * @param string        $email
+     * @param string        $firstName
+     * @param string        $lastName
+     * @param array|object  $interests  Properties/Keys are interest ids and values are boolean
+     * @param array         $extras     Additional fields to be passed to the Mailchimp API
      *
      * @throws EmailAddressNotSubscribed
      * @throws \Exception
@@ -155,7 +155,7 @@ class MailingList
                 $data['interests'] = (object) $interests;
             }
 
-            $result = $this->api->patch('lists/'.$this->id().'/members/'.$this->support->hashEmail($email));
+            $result = $this->api->patch('lists/'.$this->id().'/members/'.$this->support->hashEmail($email), $data);
 
             return $result->has('id') && strlen($result->get('id')) > 0;
         } catch (\Exception $e) {
