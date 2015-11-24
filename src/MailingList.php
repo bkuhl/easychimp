@@ -58,7 +58,7 @@ class MailingList
      * @param string    $email
      * @param string    $firstName
      * @param string    $lastName
-     * @param array     $interests  Array of interest ids
+     * @param array     $interests  Array where keys are interest ids and values are boolean
      * @param array     $extras     Additional fields to be passed to the Mailchimp API
      *
      * @throws \Exception
@@ -87,7 +87,7 @@ class MailingList
         ], $extras);
 
         if ($interests !== null) {
-            $data['interests'] = (object) array_flip($interests);
+            $data['interests'] = (object) $interests;
         }
 
         $result = $this->api->post('lists/'.$this->id().'/members', $data);
@@ -123,7 +123,7 @@ class MailingList
      * @param string    $email
      * @param string    $firstName
      * @param string    $lastName
-     * @param array     $interests  Array of interest ids
+     * @param array     $interests  Array where keys are interest ids and values are boolean
      * @param array     $extras     Additional fields to be passed to the Mailchimp API
      *
      * @throws EmailAddressNotSubscribed
@@ -152,7 +152,7 @@ class MailingList
                 $data['merge_fields'] = (object) $mergeFields;
             }
             if ($interests !== null) {
-                $data['interests'] = (object) array_flip($interests);
+                $data['interests'] = (object) $interests;
             }
 
             $result = $this->api->patch('lists/'.$this->id().'/members/'.$this->support->hashEmail($email));
