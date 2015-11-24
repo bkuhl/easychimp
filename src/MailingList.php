@@ -98,6 +98,8 @@ class MailingList
     /**
      * @param $email
      *
+     * @see http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#read-get_lists_list_id_members_subscriber_hash
+     *
      * @throws EmailAddressNotSubscribed
      * @throws \Exception
      *
