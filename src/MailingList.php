@@ -58,7 +58,7 @@ class MailingList
      * @param string    $email
      * @param string    $firstName
      * @param string    $lastName
-     * @param array     $interests  Array where keys are interest ids and values are boolean
+     * @param object    $interests  Array where keys are interest ids and values are boolean
      * @param array     $extras     Additional fields to be passed to the Mailchimp API
      *
      * @throws \Exception
@@ -69,7 +69,7 @@ class MailingList
         $email,
         $firstName = null,
         $lastName = null,
-        array $interests = null,
+        $interests = null,
         array $extras = []
     ) {
         $mergeFields = [];
@@ -123,7 +123,7 @@ class MailingList
      * @param string    $email
      * @param string    $firstName
      * @param string    $lastName
-     * @param array     $interests  Array where keys are interest ids and values are boolean
+     * @param object    $interests  Array where keys are interest ids and values are boolean
      * @param array     $extras     Additional fields to be passed to the Mailchimp API
      *
      * @throws EmailAddressNotSubscribed
@@ -135,7 +135,7 @@ class MailingList
         $email,
         $firstName = null,
         $lastName = null,
-        array $interests = null,
+        $interests = null,
         array $extras = []
     ) {
         try {
