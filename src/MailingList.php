@@ -155,7 +155,7 @@ class MailingList
                 $data['interests'] = (object) $interests;
             }
 
-            $result = $this->api->patch('lists/'.$this->id().'/members/'.$this->support->hashEmail($email), $data);
+            $result = $this->api->put('lists/'.$this->id().'/members/'.$this->support->hashEmail($email), $data);
 
             return $result->has('id') && strlen($result->get('id')) > 0;
         } catch (\Exception $e) {
