@@ -120,6 +120,9 @@ class MailingList
     }
 
     /**
+     * Updates a subscriber if the email address is already
+     * on the list, or create the subscriber
+     *
      * @param string        $email
      * @param string        $firstName
      * @param string        $lastName
@@ -138,34 +141,25 @@ class MailingList
         $interests = null,
         array $extras = []
     ) {
-        try {
-            $data = $extras;
-            $mergeFields = [];
-            if ($firstName !== null) {
-                $mergeFields['FNAME'] = $firstName;
-            }
-            if ($lastName !== null) {
-                $mergeFields['LNAME'] = $lastName;
-            }
-
-            if (count($mergeFields) > 0) {
-                $data['merge_fields'] = (object) $mergeFields;
-            }
-            if ($interests !== null) {
-                $data['interests'] = (object) $interests;
-            }
-
-            $result = $this->api->put('lists/'.$this->id().'/members/'.$this->support->hashEmail($email), $data);
-
-            return $result->has('id') && strlen($result->get('id')) > 0;
-        } catch (\Exception $e) {
-            # Email address isn't on this list
-            if (str_contains($e->getMessage(), 'Resource Not Found')) {
-                throw new EmailAddressNotSubscribed;
-            }
-
-            throw $e;
+        $data = $extras;
+        $mergeFields = [];
+        if ($firstName !== null) {
+            $mergeFields['FNAME'] = $firstName;
         }
+        if ($lastName !== null) {
+            $mergeFields['LNAME'] = $lastName;
+        }
+
+        if (count($mergeFields) > 0) {
+            $data['merge_fields'] = (object) $mergeFields;
+        }
+        if ($interests !== null) {
+            $data['interests'] = (object) $interests;
+        }
+
+        $result = $this->api->put('lists/'.$this->id().'/members/'.$this->support->hashEmail($email), $data);
+
+        return $result->has('id') && strlen($result->get('id')) > 0;
     }
 
     /**
