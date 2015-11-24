@@ -13,8 +13,10 @@ Easychimp makes integrating a PHP/Laravel app with Mailchimp's API (version 3) d
 ```php
 $easychimp = new Easychimp\Easychimp($apiKey);
 $easychimp->isSubscribed($listId, $email); // boolean
-$easychimp->subscribe($listId, $email, $firstName = null, $lastName = null, array $interests = null); // boolean
-$easychimp->unsubscribed($listId, $email); // boolean
+$easychimp->subscribe($listId, $email, $firstName = null, $lastName = null, ...); // boolean
+$easychimp->unsubscribe($listId, $email); // boolean
+$easychimp->subscriberInfo($listId, $email); // []
+$easychimp->updateSubscriber($listId, $email, $firstName = null, $lastName = null, ...); // boolean
 
 // Interests are labeled as "Groups" in the Mailchimp UI
 $easychimp->interestCategories($listId); // []
@@ -24,7 +26,7 @@ $easychimp->interests($listId, $interestCategoryId); // []
 # Installation
 
 ```
-composer require bkuhl/easychimp:~0.1
+composer require bkuhl/easychimp:~0.2
 ```
 
 # Laravel
