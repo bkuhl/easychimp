@@ -2,7 +2,7 @@
 
 namespace Easychimp;
 
-class ServiceProvider
+class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
 
     /**
