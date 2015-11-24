@@ -23,7 +23,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('Easychimp', function ($app) {
+        $this->mergeConfigFrom(
+            __DIR__.'/config/easychimp.php', 'easychimp'
+        );
+
+        $this->app->bind(Easychimp::class, function ($app) {
             $config = $app['config']['easychimp'];
             return new Easychimp($config['apikey']);
         });
