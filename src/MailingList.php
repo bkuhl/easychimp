@@ -32,6 +32,28 @@ class MailingList
     }
 
     /**
+     * @throws \Exception
+     *
+     * @return boolean
+     */
+    public function exists()
+    {
+        try {
+            $this->api->get('lists/'.$this->id());
+        } catch (\Exception $e) {
+            if (starts_with($e->getMessage(), '{')) {
+                $json = json_decode($e->getMessage());
+                if ($json->status == 404) {
+                    return false;
+                }
+            }
+
+        }
+
+        return true;
+    }
+
+    /**
      * @param $email
      *
      * @throws \Exception
@@ -141,7 +163,10 @@ class MailingList
         $interests = null,
         array $extras = []
     ) {
-        $data = $extras;
+        $data = array_merge([
+            'status_if_new' => 'subscribed',
+            'email_address' => $email
+        ], $extras);
         $mergeFields = [];
         if ($firstName !== null) {
             $mergeFields['FNAME'] = $firstName;

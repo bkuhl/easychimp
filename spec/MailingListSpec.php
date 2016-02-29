@@ -33,6 +33,22 @@ class MailingListSpec extends ObjectBehavior
         $this->id()->shouldReturn(getenv('MAILCHIMP_TEST_LIST_ID'));
     }
 
+    function it_passes_when_lists_exist()
+    {
+        $this->exists()->shouldReturn(true);
+    }
+
+    function it_fails_when_list_id_doesnt_exist()
+    {
+        $this->beConstructedWith(
+            new Mailchimp(getenv('MAILCHIMP_API_KEY')),
+            new Support(),
+            time().'-us1'
+        );
+
+        $this->exists()->shouldReturn(false);
+    }
+
     function it_throws_exception_when_subscriber_doesnt_exist()
     {
         $this->shouldThrow(EmailAddressNotSubscribed::class)
