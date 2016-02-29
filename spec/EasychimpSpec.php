@@ -2,9 +2,11 @@
 
 namespace spec\Easychimp;
 
+use Mailchimp\Mailchimp;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Easychimp\MailingList;
+use Easychimp\InvalidApiKey;
 
 class EasychimpSpec extends ObjectBehavior
 {
@@ -16,7 +18,9 @@ class EasychimpSpec extends ObjectBehavior
             require_once '.env.php';
         }
 
-        $this->beConstructedWith(getenv('MAILCHIMP_API_KEY'));
+        $this->beConstructedWith(
+            new Mailchimp(getenv('MAILCHIMP_API_KEY'))
+        );
     }
 
     function it_is_initializable()
@@ -27,5 +31,10 @@ class EasychimpSpec extends ObjectBehavior
     function it_creates_list_instances()
     {
         $this->mailingList(time())->shouldBeAnInstanceOf(MailingList::class);
+    }
+
+    function it_fails_validation_on_invalid_calls()
+    {
+        $this->validateKey()->shouldThrow(InvalidApiKey::class);
     }
 }
