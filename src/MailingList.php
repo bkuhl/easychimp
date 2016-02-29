@@ -47,7 +47,8 @@ class MailingList
                     return false;
                 }
             }
-
+            
+            throw $e;
         }
 
         return true;
