@@ -12,8 +12,10 @@ Easychimp makes integrating a PHP/Laravel app with Mailchimp's API (version 3) d
 
 ```php
 $easychimp = new Easychimp\Easychimp($apiKey);
+$easychimp->validateKey(); // throws InvalidApiKey
 $list = $easychimp->mailingList($listId);
 
+$list->exists(); // boolean
 $list->isSubscribed($$email); // boolean
 $list->subscribe($email, $firstName = null, $lastName = null, ...); // boolean
 $list->unsubscribe($email); // boolean
@@ -28,7 +30,7 @@ $list->interests($interestCategoryId); // []
 # Installation
 
 ```
-composer require bkuhl/easychimp:~0.2
+composer require bkuhl/easychimp:~0.3
 ```
 
 # Laravel
@@ -37,7 +39,7 @@ You can register the [service provider](http://laravel.com/docs/master/providers
 ```php
 'providers' => [
     ...
-    Easychimp\ServiceProvider::class
+    Easychimp\ServiceProvider::class,
 ]
 ```
 
@@ -46,7 +48,7 @@ To use the [facade](http://laravel.com/docs/master/facades), add the following t
 ```php
 'aliases' => [
     ...
-    'Easychimp' => Easychimp\MailchimpFacade::class
+    'Easychimp' => Easychimp\MailchimpFacade::class,
 ]
 ```
 
