@@ -16,7 +16,7 @@ $easychimp->validateKey(); // throws InvalidApiKey
 $list = $easychimp->mailingList($listId);
 
 $list->exists(); // boolean
-$list->isSubscribed($$email); // boolean
+$list->isSubscribed($email); // boolean
 $list->subscribe($email, $firstName = null, $lastName = null, ...); // boolean
 $list->unsubscribe($email); // boolean
 $list->subscriberInfo($email); // []
