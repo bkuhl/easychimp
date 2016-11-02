@@ -1,5 +1,6 @@
 .idea
 vendor
+composer.lock
 
 ### Laravel template
 /bootstrap/compiled.php
