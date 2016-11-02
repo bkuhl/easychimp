@@ -2,6 +2,7 @@
 
 namespace Easychimp;
 
+use Illuminate\Support\Collection;
 use Mailchimp\Mailchimp;
 
 class MailingList
@@ -57,7 +58,7 @@ class MailingList
         try {
             $result = $this->api->get('lists/'.$this->id().'/members/'.$this->support->hashEmail($email));
 
-            return $result->get('status') == 'subscribed';
+            return $result->get('status') == 'subscribed' || $result->get('status') == 'pending';
         } catch (\Exception $e) {
             # Email address isn't on this list
             if (str_contains($e->getMessage(), 'Resource Not Found')) {
@@ -76,8 +77,6 @@ class MailingList
      * @param array         $extras     Additional fields to be passed to the Mailchimp API
      *
      * @throws \Exception
-     *
-     * @return boolean
      */
     public function subscribe(
         string $email,
@@ -85,7 +84,7 @@ class MailingList
         string $lastName = null,
         $interests = null,
         array $extras = []
-    ) {
+    ) : bool {
         $mergeFields = [];
         if ($firstName !== null) {
             $mergeFields['FNAME'] = $firstName;
@@ -114,10 +113,8 @@ class MailingList
      *
      * @throws EmailAddressNotSubscribed
      * @throws \Exception
-     *
-     * @return \Illuminate\Support\Collection Info about the subscriber
      */
-    public function subscriberInfo(string $email)
+    public function subscriberInfo(string $email) : Collection
     {
         try {
             return $this->api->get('lists/'.$this->id().'/members/'.$this->support->hashEmail($email));
