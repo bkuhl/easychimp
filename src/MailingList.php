@@ -58,6 +58,7 @@ class MailingList
         try {
             $result = $this->api->get('lists/'.$this->id().'/members/'.$this->support->hashEmail($email));
 
+            // a "pending" subscriber has been added to the list but hasn't yet confirmed their memebership
             return $result->get('status') == 'subscribed' || $result->get('status') == 'pending';
         } catch (\Exception $e) {
             # Email address isn't on this list
