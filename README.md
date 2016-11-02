@@ -30,7 +30,7 @@ $list->interests($interestCategoryId); // []
 # Installation
 
 ```
-composer require bkuhl/easychimp:~0.4
+composer require bkuhl/easychimp:~1.0
 ```
 
 # Laravel
