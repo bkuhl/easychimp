@@ -85,7 +85,7 @@ class MailingListSpec extends ObjectBehavior
 
     function it_shows_email_as_subscribed()
     {
-        $this->isSubscribed(self::$EMAIL)
+        $this->isOnList(self::$EMAIL)
             ->shouldReturn(true);
     }
 
@@ -106,7 +106,7 @@ class MailingListSpec extends ObjectBehavior
 
     function it_should_classify_nonexistant_emails_as_unsubscribed()
     {
-        $this->isSubscribed(microtime().'@the.moon')
+        $this->isOnList(microtime().'@the.moon')
             ->shouldReturn(false);
     }
 

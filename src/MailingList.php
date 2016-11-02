@@ -53,13 +53,12 @@ class MailingList
     /**
      * @throws \Exception
      */
-    public function isSubscribed(string $email) : bool
+    public function isOnList(string $email) : bool
     {
         try {
-            $result = $this->api->get('lists/'.$this->id().'/members/'.$this->support->hashEmail($email));
+            $this->api->get('lists/'.$this->id().'/members/'.$this->support->hashEmail($email));
 
-            // a "pending" subscriber has been added to the list but hasn't yet confirmed their memebership
-            return $result->get('status') == 'subscribed' || $result->get('status') == 'pending';
+            return true;
         } catch (\Exception $e) {
             # Email address isn't on this list
             if (str_contains($e->getMessage(), 'Resource Not Found')) {
@@ -110,7 +109,7 @@ class MailingList
     }
 
     /**
-     * @see http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#read-get_lists_list_id_members_subscriber_hash
+     * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#read-get_lists_list_id_members_subscriber_hash
      *
      * @throws EmailAddressNotSubscribed
      * @throws \Exception
@@ -138,6 +137,8 @@ class MailingList
      * @param string        $lastName
      * @param array|object  $interests  Properties/Keys are interest ids and values are boolean
      * @param array         $extras     Additional fields to be passed to the Mailchimp API
+     *
+     * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#edit-put_lists_list_id_members_subscriber_hash
      *
      * @throws EmailAddressNotSubscribed
      * @throws \Exception
