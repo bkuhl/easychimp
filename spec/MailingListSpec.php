@@ -52,7 +52,7 @@ class MailingListSpec extends ObjectBehavior
     function it_throws_exception_when_subscriber_doesnt_exist()
     {
         $this->shouldThrow(EmailAddressNotSubscribed::class)
-            ->duringSubscriberInfo(self::$EMAIL);
+            ->duringSubscriberInfo('');
     }
 
     // ----- The following few tests share email addresses

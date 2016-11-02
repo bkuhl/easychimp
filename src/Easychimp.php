@@ -16,11 +16,9 @@ class Easychimp
     }
 
     /**
-     * @param $id
-     *
      * @return \Easychimp\MailingList
      */
-    public function mailingList($id)
+    public function mailingList(string $id)
     {
         return new MailingList($this->api, new Support(), $id);
     }

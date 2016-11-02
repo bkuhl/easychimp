@@ -4,11 +4,7 @@ namespace Easychimp;
 
 class Support
 {
-    /**
-     * @param $email
-     * @return string
-     */
-    public function hashEmail($email)
+    public function hashEmail(string $email) : string
     {
         return md5(strtolower($email));
     }

@@ -16,27 +16,22 @@ class MailingList
     /** @var string */
     protected $support;
 
-    public function __construct(Mailchimp $api, Support $support, $id)
+    public function __construct(Mailchimp $api, Support $support, string $id)
     {
         $this->api = $api;
         $this->support = $support;
         $this->id = $id;
     }
 
-    /**
-     * @return string
-     */
-    public function id()
+    public function id() : string
     {
         return $this->id;
     }
 
     /**
      * @throws \Exception
-     *
-     * @return boolean
      */
-    public function exists()
+    public function exists() : bool
     {
         try {
             $this->api->get('lists/'.$this->id());
@@ -55,13 +50,9 @@ class MailingList
     }
 
     /**
-     * @param $email
-     *
      * @throws \Exception
-     *
-     * @return boolean
      */
-    public function isSubscribed($email)
+    public function isSubscribed(string $email) : bool
     {
         try {
             $result = $this->api->get('lists/'.$this->id().'/members/'.$this->support->hashEmail($email));
@@ -89,9 +80,9 @@ class MailingList
      * @return boolean
      */
     public function subscribe(
-        $email,
-        $firstName = null,
-        $lastName = null,
+        string $email,
+        string $firstName = null,
+        string $lastName = null,
         $interests = null,
         array $extras = []
     ) {
@@ -119,8 +110,6 @@ class MailingList
     }
 
     /**
-     * @param $email
-     *
      * @see http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#read-get_lists_list_id_members_subscriber_hash
      *
      * @throws EmailAddressNotSubscribed
@@ -128,7 +117,7 @@ class MailingList
      *
      * @return \Illuminate\Support\Collection Info about the subscriber
      */
-    public function subscriberInfo($email)
+    public function subscriberInfo(string $email)
     {
         try {
             return $this->api->get('lists/'.$this->id().'/members/'.$this->support->hashEmail($email));
@@ -154,16 +143,14 @@ class MailingList
      *
      * @throws EmailAddressNotSubscribed
      * @throws \Exception
-     *
-     * @return boolean
      */
     public function updateSubscriber(
-        $email,
-        $firstName = null,
-        $lastName = null,
+        string $email,
+        string $firstName = null,
+        string $lastName = null,
         $interests = null,
         array $extras = []
-    ) {
+    ) : bool {
         $data = array_merge([
             'status_if_new' => 'subscribed',
             'email_address' => $email
@@ -189,14 +176,10 @@ class MailingList
     }
 
     /**
-     * @param $email
-     *
      * @throws EmailAddressNotSubscribed
      * @throws \Exception
-     *
-     * @return boolean
      */
-    public function unsubscribe($email)
+    public function unsubscribe(string $email) : bool
     {
         try {
             $result = $this->api->patch('lists/'.$this->id().'/members/'.$this->support->hashEmail($email), [
@@ -216,10 +199,8 @@ class MailingList
 
     /**
      * @throws \Exception
-     *
-     * @return array
      */
-    public function interestCategories()
+    public function interestCategories() : array
     {
         $result = $this->api->get('lists/'.$this->id().'/interest-categories');
 
@@ -227,13 +208,9 @@ class MailingList
     }
 
     /**
-     * @param $interestCategoryId
-     *
      * @throws \Exception
-     *
-     * @return array
      */
-    public function interests($interestCategoryId)
+    public function interests(string $interestCategoryId) : array
     {
         $result = $this->api->get('lists/'.$this->id().'/interest-categories/'.$interestCategoryId.'/interests');
 
