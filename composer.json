@@ -20,7 +20,7 @@
     },
     "require-dev": {
         "phpspec/phpspec": "~3.1",
-        "symfony/var-dumper": "dev-master"
+        "symfony/var-dumper": "3.3.*"
     },
     "extra": {
         "laravel": {
