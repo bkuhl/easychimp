@@ -119,6 +119,6 @@ class MailingListSpec extends ObjectBehavior
     {
         $category = $this->interestCategories()->shouldHaveCount(1)[0];
 
-        $this->interests($category->id)->shouldHaveCount(5);
+        $this->interests($category->id)->shouldHaveCount(6);
     }
 }
