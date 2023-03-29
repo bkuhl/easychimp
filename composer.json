@@ -14,12 +14,12 @@
         }
     },
     "require": {
-        "php": ">=7.0.0",
+        "php": ">=8.0",
         "pacely/mailchimp-apiv3": "dev-master",
         "illuminate/support": ">=5.0"
     },
     "require-dev": {
-        "phpspec/phpspec": "~3.1",
+        "phpspec/phpspec": "^7.0",
         "symfony/var-dumper": "3.3.*"
     },
     "extra": {
@@ -32,5 +32,10 @@
             }
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "config": {
+        "allow-plugins": {
+            "kylekatarnls/update-helper": true
+        }
+    }
 }
