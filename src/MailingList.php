@@ -7,7 +7,6 @@ use Mailchimp\Mailchimp;
 
 class MailingList
 {
-
     /** @var Mailchimp */
     protected $api;
 

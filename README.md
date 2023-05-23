@@ -33,16 +33,6 @@ $list->interests($interestCategoryId); // []
 composer require bkuhl/easychimp:~1.0
 ```
 
-## <= Laravel 5.4
-You can register the [service provider](http://laravel.com/docs/master/providers) in `config/app.php`
-
-```php
-'providers' => [
-    ...
-    Easychimp\ServiceProvider::class,
-]
-```
-
 To use the [facade](http://laravel.com/docs/master/facades), add the following to `config/app.php`:
 
 ```php
@@ -54,4 +44,4 @@ To use the [facade](http://laravel.com/docs/master/facades), add the following t
 
 ## Environment Variables
 
-Define the `MANDRILL_API_KEY` environmental variable.  [Get your API key here](https://us1.admin.mailchimp.com/account/api-key-popup/).
+Define the `MAILCHIMP_API_KEY` environmental variable.  [Get your API key here](https://us1.admin.mailchimp.com/account/api-key-popup/).
